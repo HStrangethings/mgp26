@@ -10,6 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.nyp.scaffoldingapp.R
 
 /**
  * Pages 1 to 3 are placeholders. They exist so the navigation bar has
@@ -45,8 +49,13 @@ fun HomeScreen(
                 .background(color = MaterialTheme.colorScheme.surfaceVariant),
             contentAlignment = Alignment.Center
         ){
-            Text("insert jewel image here, Nic, maybe try on on Week 5 or sum shit", style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant)
+           Image(
+               painter = painterResource(R.drawable.banner),
+               contentDescription = "bank banner",
+               contentScale = ContentScale.Crop,
+               modifier = Modifier.fillMaxSize()
+
+           )
         }
         //underimage
         HorizontalDivider()
