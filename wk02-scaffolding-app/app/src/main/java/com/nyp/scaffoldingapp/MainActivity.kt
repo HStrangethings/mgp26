@@ -14,7 +14,7 @@ import com.nyp.scaffoldingapp.ui.pages.*
 import com.nyp.scaffoldingapp.ui.theme.ScaffoldingTheme
 import practice.wk03.Settingspage
 
-
+//bitch
 /**
  * The four bottom tabs. An enum keeps the list in one place — add a tab here
  * and the navigation bar updates itself.
