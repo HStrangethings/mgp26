@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONException
 import java.net.SocketTimeoutException
 
-// Sealed interface (Week 2): the login screen is in EXACTLY one of these states.
+// the login screen is in EXACTLY one of these states.
 sealed interface LoginState {
     data object Idle : LoginState                        // waiting for the user to type and press the button
     data object Checking : LoginState                    // request in progress
