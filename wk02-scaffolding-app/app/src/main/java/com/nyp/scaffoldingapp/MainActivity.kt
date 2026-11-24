@@ -13,6 +13,10 @@ import androidx.compose.ui.res.painterResource
 import com.nyp.scaffoldingapp.ui.pages.*
 import com.nyp.scaffoldingapp.ui.theme.ScaffoldingTheme
 import practice.wk03.Settingspage
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.nyp.scaffoldingapp.ui.login.LoginState
+import com.nyp.scaffoldingapp.ui.login.LoginViewModel
+
 
 //bitch
 /**
@@ -31,49 +35,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ScaffoldingTheme {
-                AppScaffold()
+                AppRoot() // was: AppScaffold()
             }
         }
     }
 }
 
 @Composable
-fun AppScaffold() {
-    // rememberSaveable, not remember: the selected tab must survive a rotation.
-    var selectedTab by rememberSaveable { mutableStateOf(Tab.PAGE1) }
+fun AppRoot() {
+    // viewModel() gives the Activity-scoped LoginViewModel, so it survives rotation.
+    val loginViewModel: LoginViewModel = viewModel()
+    val loginState by loginViewModel.state.collectAsState()
 
-    Scaffold(
-        bottomBar = {
-            NavigationBar {
-                Tab.entries.forEach { tab ->
-                    NavigationBarItem(
-                        selected = selectedTab == tab,
-                        onClick = { selectedTab = tab },
-                        icon = {
-                            // Icon() tints the image with the theme colour,
-                            // which is what gives you selected / unselected
-                            // states for free. Use Image() instead if you
-                            // want the picture's own colours.
-                            Icon(
-                                painter = painterResource(tab.icon),
-                                contentDescription = tab.label
-                            )
-                        },
-                        label = { Text(tab.label) }
-                    )
-                }
-            }
-        }
-    ) { padding ->
-        // Use the padding Scaffold gives you, or your content hides behind
-        // the navigation bar.
-        Box(Modifier.padding(padding).fillMaxSize()) {
-            when (selectedTab) {
-                Tab.PAGE1 -> Page1()
-                Tab.PAGE2 -> Settingspage()
-                Tab.PAGE3 -> Page3()
-                Tab.PAGE4 -> Page4()
-            }
-        }
+    if (loginState is LoginState.Success) {
+        AppRoot()
+    } else {
+        LoginPage(loginViewModel)
     }
 }
